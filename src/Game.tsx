@@ -75,11 +75,11 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 				return updatedCorrect;
 			});
 
+			setNewAnswer();
 			// ポップアップを閉じた後に新しい問題を設定
 			setTimeout(() => {
 				setShowPopup(false);
 			}, 800);
-			setNewAnswer();
 		} else {
 			console.log("Wrong!");
 			setNewAnswer(); // 不正解時は即座に問題を切り替え
