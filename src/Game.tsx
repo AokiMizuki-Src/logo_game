@@ -9,7 +9,7 @@ type GameProps = {
 const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 	const [randomItem, setRandomItem] = useState<logo[]>([]);
 	const [correctNum, setCorrectNum] = useState<number>(0);
-	const [quetionNum, setQuetionNum] = useState<number>(0);
+	const [questionNum, setQuestionNum] = useState<number>(0);
 
 	// 前回のanswerを保持
 	const [previousAnswer, setPreviousAnswer] = useState<logo | null>(null);
@@ -54,7 +54,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 
 	const resetCount = () => {
 		setCorrectNum(0);
-		setQuetionNum(0);
+		setQuestionNum(0);
 		setNewAnswer();
 		onCorrectUpdate(0);
 	};
@@ -68,6 +68,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 		if (answer && answer.id === id) {
 			console.log("Correct!");
 			setShowPopup(true);
+			console.log(correctNum);
 			setCorrectNum((correctNum) => {
 				const updatedCorrect = correctNum + 1;
 				onCorrectUpdate(updatedCorrect); // 親コンポーネントに更新通知
@@ -83,7 +84,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 			console.log("Wrong!");
 			setNewAnswer(); // 不正解時は即座に問題を切り替え
 		}
-		setQuetionNum((correctNum) => correctNum + 1);
+		setQuestionNum((correctNum) => correctNum + 1);
 	};
 
 	return (
@@ -94,7 +95,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 				<div className="imgArea">{answer && <img src={answer.url} alt="logo" />}</div>
 			</div>
 			<div className="optionBtnArea">
-				<h2>Quetion. {quetionNum}</h2>
+				<h2>Quetion. {questionNum}</h2>
 				<button type="button" className="resetBtn" onClick={resetCount}>
 					Reset
 				</button>
