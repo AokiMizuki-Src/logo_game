@@ -59,7 +59,7 @@ header > .container {
 
 main {
 	width: 100%;
-	height: calc(100% - 50px);
+	height: calc(100% - 50px - 20px);
 	position: relative;
 }
 
@@ -154,14 +154,38 @@ main {
 	background: #020202df;
 	border-radius: 10px;
 	font-weight: 600;
-	color: #00bab1;
 	text-align: center;
 	align-content: center;
 	z-index: 10;
 
 	/* transition: all 0.5s; */
-	animation: popupAppear 0.9s infinite;
 	/* opacity: 0; */
+}
+
+.popup.correct {
+	color: #00bab1;
+	animation: popupAppear 0.9s infinite;
+}
+.popup.miss {
+	color: #c11010;
+	animation: miss 0.8s infinite;
+}
+
+@keyframes miss {
+	0%,
+	60%,
+	100% {
+		transform: translateX(0);
+	}
+	10%,
+	30%,
+	50% {
+		transform: translateX(-10px);
+	}
+	20%,
+	40% {
+		transform: translateX(10px);
+	}
 }
 
 @keyframes popupAppear {
@@ -265,4 +289,9 @@ main {
 	/* &:hover {
 		background: color-mix(in srgb, rgba(64, 64, 64, 0.294), #efff89 20%);
 	} */
+}
+footer {
+	text-align: center;
+	color: #69227d;
+	font-size: 16px;
 }

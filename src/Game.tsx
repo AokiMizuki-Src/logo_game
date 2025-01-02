@@ -10,6 +10,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 	const [randomItem, setRandomItem] = useState<logo[]>([]);
 	const [correctNum, setCorrectNum] = useState<number>(0);
 	const [questionNum, setQuestionNum] = useState<number>(0);
+	const [ansMsg, setAndMsg] = useState<string>("");
 
 	// 前回のanswerを保持
 	const [previousAnswer, setPreviousAnswer] = useState<logo | null>(null);
@@ -30,7 +31,18 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 
 	// 配列をシャッフルする関数
 	const shuffleArray = (array: logo[]): logo[] => {
-		return [...array].sort(() => 0.5 - Math.random());
+		const n = array.length;
+		let idx = [...array];
+		console.log("idx", idx);
+		const kmax = Math.floor(Math.random() * 100) + Math.floor(Math.random() * 100);
+		for (let k = 0; k < kmax; k++) {
+			let i = Math.floor(Math.random() * n);
+			let j = Math.floor(Math.random() * n);
+			[idx[i], idx[j]] = [idx[j], idx[i]];
+		}
+		console.log("idx", idx);
+		return idx;
+		// return [...array].sort(() => 0.5 - Math.random());
 	};
 
 	// ランダムなロゴを生成
@@ -52,6 +64,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 		setPreviousAnswer(newAnswer);
 	};
 
+	// リセット
 	const resetCount = () => {
 		setCorrectNum(0);
 		setQuestionNum(0);
@@ -67,29 +80,32 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 		console.log("clicked", id);
 		if (answer && answer.id === id) {
 			console.log("Correct!");
-			setShowPopup(true);
 			console.log(correctNum);
+
+			setAndMsg("Correct!");
 			setCorrectNum((correctNum) => {
 				const updatedCorrect = correctNum + 1;
-				onCorrectUpdate(updatedCorrect); // 親コンポーネントに更新通知
+				// 親コンポーネントに更新通知
+				onCorrectUpdate(updatedCorrect);
 				return updatedCorrect;
 			});
-
-			setNewAnswer();
-			// ポップアップを閉じた後に新しい問題を設定
-			setTimeout(() => {
-				setShowPopup(false);
-			}, 800);
 		} else {
-			console.log("Wrong!");
-			setNewAnswer(); // 不正解時は即座に問題を切り替え
+			setAndMsg("Miss");
+			console.log("Miss");
 		}
+		// ポップアップを表示
+		setShowPopup(true);
+		// ポップアップを閉じる
+		setTimeout(() => {
+			setShowPopup(false);
+		}, 800);
+		setNewAnswer();
 		setQuestionNum((correctNum) => correctNum + 1);
 	};
 
 	return (
 		<>
-			{showPopup && <Popup message="Correct!" onClose={handleClosePopup} />}
+			{showPopup && <Popup message={ansMsg} onClose={handleClosePopup} />}
 
 			<div className="display">
 				<div className="imgArea">{answer && <img src={answer.url} alt="logo" />}</div>

@@ -8,7 +8,8 @@ const App: React.FC = () => {
 	const [correctNum, setCorrectNum] = useState<number>(0);
 
 	const handleCorrectUpdate = (newCorrectNum: number) => {
-		setCorrectNum(newCorrectNum); // Gameから渡される正解数を更新
+		// Gameから渡される正解数を更新
+		setCorrectNum(newCorrectNum);
 	};
 
 	const gameStartHandler = () => {
@@ -47,6 +48,9 @@ const App: React.FC = () => {
 					)}
 				</div>
 			</main>
+			<footer>
+				<p>© 2025 Mizuki Aoki</p>
+			</footer>
 		</>
 	);
 };

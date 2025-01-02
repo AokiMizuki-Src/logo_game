@@ -5,9 +5,7 @@ import "./index.css";
 import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
-	<StrictMode>
-		<Router basename="/logo_game">
-			<App />
-		</Router>
-	</StrictMode>
+	<Router basename="/logo_game">
+		<App />
+	</Router>
 );

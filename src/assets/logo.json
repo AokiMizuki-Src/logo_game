@@ -168,5 +168,35 @@
 		"id": 34,
 		"name": "Firebase",
 		"url": "/logo_game/img/Firebase.svg"
+	},
+	{
+		"id": 35,
+		"name": "Slack",
+		"url": "/logo_game/img/slack.svg"
+	},
+	{
+		"id": 36,
+		"name": "Discord",
+		"url": "/logo_game/img/discord.svg"
+	},
+	{
+		"id": 37,
+		"name": "Scala",
+		"url": "/logo_game/img/Scala.svg"
+	},
+	{
+		"id": 38,
+		"name": "Google Cloud",
+		"url": "/logo_game/img/google-cloud.svg"
+	},
+	{
+		"id": 39,
+		"name": "GAS",
+		"url": "/logo_game/img/Google_Apps_Script.svg"
+	},
+	{
+		"id": 40,
+		"name": "PhpMyAdmin",
+		"url": "/logo_game/img/PhpMyAdmin_logo.svg"
 	}
 ]

@@ -13,7 +13,17 @@ const Popup: React.FC<PopupProps> = ({ message, onClose }) => {
 		return () => clearTimeout(timer); // クリーンアップ
 	}, [onClose]);
 
-	return <div className="popup">{message}</div>;
+	const getClassName = () => {
+		if (message.includes("Correct!")) {
+			return "popup correct";
+		}
+		if (message.includes("Miss")) {
+			return "popup miss";
+		}
+		return "popup";
+	};
+
+	return <div className={getClassName()}>{message}</div>;
 };
 
 export default Popup;
