@@ -86,7 +86,7 @@
 	},
 	{
 		"id": 18,
-		"name": "Github",
+		"name": "GitHub",
 		"url": "/logo_game/img/github-white.svg"
 	},
 	{
@@ -128,5 +128,45 @@
 		"id": 26,
 		"name": "FastAPI",
 		"url": "/logo_game/img/FastAPI.svg"
+	},
+	{
+		"id": 27,
+		"name": "OpenMP",
+		"url": "/logo_game/img/OpenMP.png"
+	},
+	{
+		"id": 28,
+		"name": "PostgreSQL",
+		"url": "/logo_game/img/Postgre.svg"
+	},
+	{
+		"id": 29,
+		"name": "MATLAB",
+		"url": "/logo_game/img/Matlab.png"
+	},
+	{
+		"id": 30,
+		"name": "Java",
+		"url": "/logo_game/img/java.svg"
+	},
+	{
+		"id": 31,
+		"name": "Figma",
+		"url": "/logo_game/img/Figma.svg"
+	},
+	{
+		"id": 32,
+		"name": "PHP",
+		"url": "/logo_game/img/php.svg"
+	},
+	{
+		"id": 33,
+		"name": "Microsoft Azure",
+		"url": "/logo_game/img/Microsoft_Azure.svg"
+	},
+	{
+		"id": 34,
+		"name": "Firebase",
+		"url": "/logo_game/img/Firebase.svg"
 	}
 ]
