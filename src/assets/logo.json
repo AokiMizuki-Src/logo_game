@@ -1,0 +1,132 @@
+[
+	{
+		"id": 1,
+		"name": "React",
+		"url": "./src/assets/img/react.png"
+	},
+	{
+		"id": 2,
+		"name": "Angular",
+		"url": "./src/assets/img/Angular.png"
+	},
+	{
+		"id": 3,
+		"name": "Docker",
+		"url": "./src/assets/img/docker.png"
+	},
+	{
+		"id": 4,
+		"name": "Go",
+		"url": "./src/assets/img/Go.svg"
+	},
+	{
+		"id": 5,
+		"name": "Kubernetes",
+		"url": "./src/assets/img/kubernetes.png"
+	},
+	{
+		"id": 6,
+		"name": "Laravel",
+		"url": "./src/assets/img/laravel.avif"
+	},
+	{
+		"id": 7,
+		"name": "Nginx",
+		"url": "./src/assets/img/nginx.png"
+	},
+	{
+		"id": 8,
+		"name": "Node.js",
+		"url": "./src/assets/img/nodejs.svg"
+	},
+	{
+		"id": 9,
+		"name": "Python",
+		"url": "./src/assets/img/python.png"
+	},
+	{
+		"id": 10,
+		"name": "Ruby",
+		"url": "./src/assets/img/ruby.avif"
+	},
+	{
+		"id": 11,
+		"name": "Rust",
+		"url": "./src/assets/img/rust.avif"
+	},
+	{
+		"id": 12,
+		"name": "Sass",
+		"url": "./src/assets/img/Sass.svg"
+	},
+	{
+		"id": 13,
+		"name": "TypeScript",
+		"url": "./src/assets/img/typescript.avif"
+	},
+	{
+		"id": 14,
+		"name": "Vite",
+		"url": "./src/assets/img/vite.svg"
+	},
+	{
+		"id": 15,
+		"name": "Vue",
+		"url": "./src/assets/img/Vue.js.svg"
+	},
+	{
+		"id": 16,
+		"name": "Apache",
+		"url": "./src/assets/img/apache.svg"
+	},
+	{
+		"id": 17,
+		"name": "HTML",
+		"url": "./src/assets/img/HTML5.png"
+	},
+	{
+		"id": 18,
+		"name": "Github",
+		"url": "./src/assets/img/github-white.svg"
+	},
+	{
+		"id": 19,
+		"name": "Git",
+		"url": "./src/assets/img/Git.svg"
+	},
+	{
+		"id": 20,
+		"name": "GitLab",
+		"url": "./src/assets/img/gitlab.svg"
+	},
+	{
+		"id": 21,
+		"name": "Kotlin",
+		"url": "./src/assets/img/Kotlin.png"
+	},
+	{
+		"id": 22,
+		"name": "Swift",
+		"url": "./src/assets/img/Swift.svg"
+	},
+	{
+		"id": 23,
+		"name": "C++",
+		"url": "./src/assets/img/C++.png"
+	},
+	{
+		"id": 24,
+		"name": "Flutter",
+		"url": "./src/assets/img/flutter.svg"
+	},
+	{
+		"id": 25,
+		"name": "Dart",
+		"url": "./src/assets/img/dart.svg"
+	},
+	{
+		"id": 26,
+		"name": "FastAPI",
+		"url": "./src/assets/img/FastAPI.svg"
+	}
+]
