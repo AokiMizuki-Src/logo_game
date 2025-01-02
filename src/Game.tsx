@@ -68,8 +68,8 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 		if (answer && answer.id === id) {
 			console.log("Correct!");
 			setShowPopup(true);
-			setCorrectNum((prev) => {
-				const updatedCorrect = prev + 1;
+			setCorrectNum((correctNum) => {
+				const updatedCorrect = correctNum + 1;
 				onCorrectUpdate(updatedCorrect); // 親コンポーネントに更新通知
 				return updatedCorrect;
 			});
@@ -83,7 +83,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 			console.log("Wrong!");
 			setNewAnswer(); // 不正解時は即座に問題を切り替え
 		}
-		setQuetionNum((prev) => prev + 1);
+		setQuetionNum((correctNum) => correctNum + 1);
 	};
 
 	return (

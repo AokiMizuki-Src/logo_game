@@ -6,16 +6,9 @@ const App: React.FC = () => {
 	const [showGame, setShowGame] = useState<boolean>(false);
 	// 正解数
 	const [correctNum, setCorrectNum] = useState<number>(0);
-	const [quettionNum, setQuettionNum] = useState<number>(0);
 
 	const handleCorrectUpdate = (newCorrectNum: number) => {
 		setCorrectNum(newCorrectNum); // Gameから渡される正解数を更新
-	};
-
-	type logo = {
-		id: number;
-		name: string;
-		url: string;
 	};
 
 	const gameStartHandler = () => {
