@@ -37,9 +37,10 @@ header > .container {
 	display: flex;
 	align-items: center;
 	font-size: 22px;
+	padding: 0 max(2%, 15px);
 
 	& nav.header_nav {
-		margin-left: auto;
+		margin-right: auto;
 	}
 
 	& .header_nav > ul {
@@ -47,7 +48,7 @@ header > .container {
 		font-size: 20px;
 	}
 	& .header_nav > ul > li {
-		padding: 0 10px;
+		/* padding: 0 10px; */
 	}
 }
 .point {
@@ -261,7 +262,7 @@ main {
 	border: 1px solid rgba(255, 255, 255, 0.392);
 	color: #fff;
 
-	&:hover {
+	/* &:hover {
 		background: color-mix(in srgb, rgba(64, 64, 64, 0.294), #efff89 20%);
-	}
+	} */
 }

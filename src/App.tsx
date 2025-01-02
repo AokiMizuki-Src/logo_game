@@ -19,18 +19,18 @@ const App: React.FC = () => {
 		<>
 			<header>
 				<div className="container">
-					<div className="logo">
-						<a href="">logo</a>
-					</div>
 					<nav className="header_nav">
 						<ul>
 							{showGame && (
 								<li>
-									Correct Answers: <span className="point">{correctNum}</span>
+									Correct Answers :<span className="point">{correctNum}</span>
 								</li>
 							)}
 						</ul>
 					</nav>
+					<div className="logo">
+						<a href="">logo</a>
+					</div>
 				</div>
 			</header>
 			<main>
