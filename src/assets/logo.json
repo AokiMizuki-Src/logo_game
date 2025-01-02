@@ -2,131 +2,131 @@
 	{
 		"id": 1,
 		"name": "React",
-		"url": "/logo_game/src/assets/img/react.png"
+		"url": "/logo_game/img/react.png"
 	},
 	{
 		"id": 2,
 		"name": "Angular",
-		"url": "/logo_game/src/assets/img/Angular.png"
+		"url": "/logo_game/img/Angular.png"
 	},
 	{
 		"id": 3,
 		"name": "Docker",
-		"url": "/logo_game/src/assets/img/docker.png"
+		"url": "/logo_game/img/docker.png"
 	},
 	{
 		"id": 4,
 		"name": "Go",
-		"url": "/logo_game/src/assets/img/Go.svg"
+		"url": "/logo_game/img/Go.svg"
 	},
 	{
 		"id": 5,
 		"name": "Kubernetes",
-		"url": "/logo_game/src/assets/img/kubernetes.png"
+		"url": "/logo_game/img/kubernetes.png"
 	},
 	{
 		"id": 6,
 		"name": "Laravel",
-		"url": "/logo_game/src/assets/img/laravel.avif"
+		"url": "/logo_game/img/laravel.avif"
 	},
 	{
 		"id": 7,
 		"name": "Nginx",
-		"url": "/logo_game/src/assets/img/nginx.png"
+		"url": "/logo_game/img/nginx.png"
 	},
 	{
 		"id": 8,
 		"name": "Node.js",
-		"url": "/logo_game/src/assets/img/nodejs.svg"
+		"url": "/logo_game/img/nodejs.svg"
 	},
 	{
 		"id": 9,
 		"name": "Python",
-		"url": "/logo_game/src/assets/img/python.png"
+		"url": "/logo_game/img/python.png"
 	},
 	{
 		"id": 10,
 		"name": "Ruby",
-		"url": "/logo_game/src/assets/img/ruby.avif"
+		"url": "/logo_game/img/ruby.avif"
 	},
 	{
 		"id": 11,
 		"name": "Rust",
-		"url": "/logo_game/src/assets/img/rust.avif"
+		"url": "/logo_game/img/rust.avif"
 	},
 	{
 		"id": 12,
 		"name": "Sass",
-		"url": "/logo_game/src/assets/img/Sass.svg"
+		"url": "/logo_game/img/Sass.svg"
 	},
 	{
 		"id": 13,
 		"name": "TypeScript",
-		"url": "/logo_game/src/assets/img/typescript.avif"
+		"url": "/logo_game/img/typescript.avif"
 	},
 	{
 		"id": 14,
 		"name": "Vite",
-		"url": "/logo_game/src/assets/img/vite.svg"
+		"url": "/logo_game/img/vite.svg"
 	},
 	{
 		"id": 15,
 		"name": "Vue",
-		"url": "/logo_game/src/assets/img/Vue.js.svg"
+		"url": "/logo_game/img/Vue.js.svg"
 	},
 	{
 		"id": 16,
 		"name": "Apache",
-		"url": "/logo_game/src/assets/img/apache.svg"
+		"url": "/logo_game/img/apache.svg"
 	},
 	{
 		"id": 17,
 		"name": "HTML",
-		"url": "/logo_game/src/assets/img/HTML5.png"
+		"url": "/logo_game/img/HTML5.png"
 	},
 	{
 		"id": 18,
 		"name": "Github",
-		"url": "/logo_game/src/assets/img/github-white.svg"
+		"url": "/logo_game/img/github-white.svg"
 	},
 	{
 		"id": 19,
 		"name": "Git",
-		"url": "/logo_game/src/assets/img/Git.svg"
+		"url": "/logo_game/img/Git.svg"
 	},
 	{
 		"id": 20,
 		"name": "GitLab",
-		"url": "/logo_game/src/assets/img/gitlab.svg"
+		"url": "/logo_game/img/gitlab.svg"
 	},
 	{
 		"id": 21,
 		"name": "Kotlin",
-		"url": "/logo_game/src/assets/img/Kotlin.png"
+		"url": "/logo_game/img/Kotlin.png"
 	},
 	{
 		"id": 22,
 		"name": "Swift",
-		"url": "/logo_game/src/assets/img/Swift.svg"
+		"url": "/logo_game/img/Swift.svg"
 	},
 	{
 		"id": 23,
 		"name": "C++",
-		"url": "/logo_game/src/assets/img/C++.png"
+		"url": "/logo_game/img/C++.png"
 	},
 	{
 		"id": 24,
 		"name": "Flutter",
-		"url": "/logo_game/src/assets/img/flutter.svg"
+		"url": "/logo_game/img/flutter.svg"
 	},
 	{
 		"id": 25,
 		"name": "Dart",
-		"url": "/logo_game/src/assets/img/dart.svg"
+		"url": "/logo_game/img/dart.svg"
 	},
 	{
 		"id": 26,
 		"name": "FastAPI",
-		"url": "/logo_game/src/assets/img/FastAPI.svg"
+		"url": "/logo_game/img/FastAPI.svg"
 	}
 ]
