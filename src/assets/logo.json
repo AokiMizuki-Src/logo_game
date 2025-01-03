@@ -191,12 +191,72 @@
 	},
 	{
 		"id": 39,
-		"name": "GAS",
+		"name": "Google Apps Script",
 		"url": "/logo_game/img/Google_Apps_Script.svg"
 	},
 	{
 		"id": 40,
 		"name": "PhpMyAdmin",
 		"url": "/logo_game/img/PhpMyAdmin_logo.svg"
+	},
+	{
+		"id": 41,
+		"name": "Unity",
+		"url": "/logo_game/img/unity.svg"
+	},
+	{
+		"id": 42,
+		"name": "Amazon Web Services",
+		"url": "/logo_game/img/Amazon_Web_Services_Logo.svg"
+	},
+	{
+		"id": 43,
+		"name": "Terraform",
+		"url": "/logo_game/img/Terraform_Logo.svg"
+	},
+	{
+		"id": 44,
+		"name": "Postman",
+		"url": "/logo_game/img/postman.svg"
+	},
+	{
+		"id": 45,
+		"name": "Composer",
+		"url": "/logo_game/img/composer.png"
+	},
+	{
+		"id": 46,
+		"name": "npm",
+		"url": "/logo_game/img/Npm.svg"
+	},
+	{
+		"id": 47,
+		"name": "Ruby on Rails",
+		"url": "/logo_game/img/Ruby_On_Rails.svg"
+	},
+	{
+		"id": 48,
+		"name": "GNU Octave",
+		"url": "/logo_game/img/octave-logo.svg"
+	},
+	{
+		"id": 49,
+		"name": "GNU",
+		"url": "/logo_game/img/Heckert_GNU_white.svg"
+	},
+	{
+		"id": 50,
+		"name": "NVIDIA",
+		"url": "/logo_game/img/nvidia.svg"
+	},
+	{
+		"id": 51,
+		"name": "AMD",
+		"url": "/logo_game/img/AMD_Logo.svg"
+	},
+	{
+		"id": 52,
+		"name": "arm",
+		"url": "/logo_game/img/Arm.svg"
 	}
 ]

@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import logos from "./assets/logo.json";
 import Popup from "./popup";
+import { GameContext } from "./GameContext";
 
 type GameProps = {
-	onCorrectUpdate: (correctNum: number) => void; // 親コンポーネントへの更新通知
+	onCorrectUpdate: (correctNum: number) => void;
+	onTimeUpdate: (timeLeft: number) => void;
+	onFinish: (finish: boolean) => void;
 };
 
-const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
+const Game: React.FC<GameProps> = ({ onCorrectUpdate, onTimeUpdate, onFinish }) => {
 	const [randomItem, setRandomItem] = useState<logo[]>([]);
-	const [correctNum, setCorrectNum] = useState<number>(0);
-	const [questionNum, setQuestionNum] = useState<number>(0);
 	const [ansMsg, setAndMsg] = useState<string>("");
+	const [timeLeft, setTimeLeft] = useState<number>(10); // 初期の時間制限（10秒）
 
 	// 前回のanswerを保持
 	const [previousAnswer, setPreviousAnswer] = useState<logo | null>(null);
@@ -18,6 +20,11 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 	const [answer, setAnswer] = useState<logo | null>(null);
 	// ポップアップ
 	const [showPopup, setShowPopup] = useState(false);
+
+	// GameContextから値を取得
+	const gameContext = useContext(GameContext);
+	if (!gameContext) return null; // gameContext が undefined の場合は何も表示しない
+	const { questionNum, correctNum, setQuestionNum, setCorrectNum } = gameContext;
 
 	type logo = {
 		id: number;
@@ -33,16 +40,13 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 	const shuffleArray = (array: logo[]): logo[] => {
 		const n = array.length;
 		let idx = [...array];
-		console.log("idx", idx);
 		const kmax = Math.floor(Math.random() * 100) + Math.floor(Math.random() * 100);
 		for (let k = 0; k < kmax; k++) {
 			let i = Math.floor(Math.random() * n);
 			let j = Math.floor(Math.random() * n);
 			[idx[i], idx[j]] = [idx[j], idx[i]];
 		}
-		console.log("idx", idx);
 		return idx;
-		// return [...array].sort(() => 0.5 - Math.random());
 	};
 
 	// ランダムなロゴを生成
@@ -54,12 +58,11 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 	const setNewAnswer = () => {
 		const currentRandomItems = randomLogos();
 		let newAnswer: logo;
-
 		do {
 			newAnswer = currentRandomItems[Math.floor(Math.random() * currentRandomItems.length)];
 		} while (previousAnswer && newAnswer.id === previousAnswer.id);
 
-		setRandomItem(shuffleArray(currentRandomItems)); // ボタンの順番をランダム化
+		setRandomItem(shuffleArray(currentRandomItems));
 		setAnswer(newAnswer);
 		setPreviousAnswer(newAnswer);
 	};
@@ -70,29 +73,54 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 		setQuestionNum(0);
 		setNewAnswer();
 		onCorrectUpdate(0);
+		setTimeLeft(30);
 	};
+
+	// タイマーの管理
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setTimeLeft((prevTime) => {
+				if (prevTime <= 1) {
+					clearInterval(timer); // ここでタイマーをクリア
+					onFinish(true);
+					setQuestionNum(questionNum);
+					setCorrectNum(correctNum);
+					return 0;
+				}
+				return prevTime - 1;
+			});
+		}, 1000);
+
+		// クリーンアップ関数でタイマーをクリア
+		return () => clearInterval(timer);
+	}, [questionNum, correctNum, onFinish, setQuestionNum, setCorrectNum]);
+
+	// 親コンポーネントへ時間を通知
+	useEffect(() => {
+		onTimeUpdate(timeLeft);
+	}, [timeLeft, onTimeUpdate]);
 
 	useEffect(() => {
 		setNewAnswer();
 	}, []);
 
 	const answerHandler = (id: number) => {
-		console.log("clicked", id);
-		if (answer && answer.id === id) {
-			console.log("Correct!");
-			console.log(correctNum);
+		if (timeLeft === 0) {
+			onFinish(true);
+			return;
+		}
 
+		if (answer && answer.id === id) {
 			setAndMsg("Correct!");
 			setCorrectNum((correctNum) => {
 				const updatedCorrect = correctNum + 1;
-				// 親コンポーネントに更新通知
 				onCorrectUpdate(updatedCorrect);
 				return updatedCorrect;
 			});
 		} else {
 			setAndMsg("Miss");
-			console.log("Miss");
 		}
+
 		// ポップアップを表示
 		setShowPopup(true);
 		// ポップアップを閉じる
@@ -111,7 +139,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate }) => {
 				<div className="imgArea">{answer && <img src={answer.url} alt="logo" />}</div>
 			</div>
 			<div className="optionBtnArea">
-				<h2>Quetion. {questionNum}</h2>
+				<h2>Question. {questionNum}</h2>
 				<button type="button" className="resetBtn" onClick={resetCount}>
 					Reset
 				</button>

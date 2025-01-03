@@ -46,14 +46,17 @@ header > .container {
 	& .header_nav > ul {
 		display: flex;
 		font-size: 20px;
+		column-gap: 10px;
 	}
 	& .header_nav > ul > li {
+		display: flex;
+		align-items: center;
 		/* padding: 0 10px; */
 	}
 }
 .point {
 	display: inline-block;
-	min-width: 50px;
+	min-width: 30px;
 	text-align: center;
 }
 
@@ -92,7 +95,7 @@ main {
 	font-style: normal; */
 	color: #fff;
 	/* margin: 10px 0; */
-	font-size: 22px;
+	font-size: 21px;
 	margin: 10px -30px 20px;
 }
 /* --- */
@@ -280,7 +283,6 @@ main {
 
 	backdrop-filter: blur(16px) saturate(180%);
 	-webkit-backdrop-filter: blur(16px) saturate(180%);
-	/* background-color: rgba(231, 231, 231, 0.166); */
 	background-color: rgba(64, 64, 64, 0.294);
 	border-radius: 5px;
 	border: 1px solid rgba(255, 255, 255, 0.392);
