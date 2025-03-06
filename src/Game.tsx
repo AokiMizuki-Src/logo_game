@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import logos from "./assets/logo.json";
 import Popup from "./popup";
-import { GameContext } from "./GameContext";
+// import { GameContext } from "./GameContext";
 
 type GameProps = {
 	onCorrectUpdate: (correctNum: number) => void;

@@ -14,7 +14,7 @@ export const GameContext = createContext<GameContextType | undefined>(undefined)
 // GameContext の Provider を作成
 export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const [questionNum, setQuestionNum] = useState<number>(0);
-	const [correctNum, setCorrectNum] = useState<number>(0);
+	const [correctNum, setCorrectNum] = useState<number>(10);
 
 	return (
 		<GameContext.Provider value={{ questionNum, correctNum, setQuestionNum, setCorrectNum }}>

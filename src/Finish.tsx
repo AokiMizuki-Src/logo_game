@@ -1,18 +1,18 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import "./Finish.css";
 import { GameContext } from "./GameContext";
-import firebase from "firebase/compat/app";
-import db from "./firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
+// import firebase from "firebase/compat/app";
+// import db from "./firebase";
+// import { collection, doc, setDoc } from "firebase/firestore";
 
 type FinishProps = {
 	numbers: number[];
 };
 
-type ScoreData = {
-	name: string;
-	score: number;
-};
+// type ScoreData = {
+// 	name: string;
+// 	score: number;
+// };
 
 const Finish: React.FC<FinishProps> = (props) => {
 	const gameContext = useContext(GameContext);
@@ -20,19 +20,19 @@ const Finish: React.FC<FinishProps> = (props) => {
 	// console.log("props.correct", props.correct);
 	// console.log("props.quetion", props.question);
 
-	const [scoreData, setScoreDatas] = useState<ScoreData | null>(null);
+	// const [scoreData, setScoreDatas] = useState<ScoreData | null>(null);
 
 	if (!gameContext) return null; // gameContext が undefined の場合は何も表示しない
 	// const { questionNum, correctNum } = gameContext;
 
 	// setDoc(doc(db, "scores"), scoreData)
 
-	function postScore() {
-		setDoc(doc(collection(db, "scores")), {
-			name: scoreData?.name,
-			score: scoreData?.score,
-		});
-	}
+	// function postScore() {
+	// 	setDoc(doc(collection(db, "scores")), {
+	// 		name: scoreData?.name,
+	// 		score: scoreData?.score,
+	// 	});
+	// }
 
 	return (
 		<>
