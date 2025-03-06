@@ -54,7 +54,7 @@ const Finish: React.FC<FinishProps> = (props) => {
 						onChange={(e) => setScoreDatas({ name: e.target.value, score: correct })}
 						value={scoreData?.name}
 					/> */}
-					<input type="button" className="finishInputBtn" value="OK" onClick={postScore} />
+					{/* <input type="button" className="finishInputBtn" value="OK" onClick={postScore} /> */}
 				</div>
 			</div>
 		</>
