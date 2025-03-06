@@ -6,4 +6,8 @@ export default defineConfig({
 	plugins: [react()],
 	assetsInclude: ["**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.gif", "**/*.svg", "**/*.avif"],
 	base: "/logo_game/",
+	server: {
+		host: "0.0.0.0",
+		port: 4000,
+	},
 });

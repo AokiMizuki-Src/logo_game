@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 import Game from "./Game";
-import { GameProvider } from "./GameContext";
 import { MdOutlineTimer } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import Finish from "./Finish";
@@ -12,7 +11,7 @@ const App: React.FC = () => {
 	// 正解数
 	const [correctNum, setCorrectNum] = useState<number>(0);
 	// 問題数
-	// const [questionNum, setQuestionNum] = useState<number>(0);
+	const [questionNum, setQuestionNum] = useState<number>(0);
 	// 残り時間
 	const [timeLeft, setTimeLeft] = useState<number>(10);
 	// ゲーム終了
@@ -29,12 +28,17 @@ const App: React.FC = () => {
 	const handleFinishGame = (status: boolean) => {
 		setShowGame(!status);
 		setShowFinish(status);
+
 		console.log("finish");
 	};
 
 	const handleCorrectUpdate = (newCorrectNum: number) => {
 		// Gameから渡される正解数を更新
 		setCorrectNum(newCorrectNum);
+	};
+	const handleQuestionUpdate = (newQuestiontNum: number) => {
+		// Gameから渡される正解数を更新
+		setQuestionNum(newQuestiontNum);
 	};
 
 	const handleTimeUpdate = (newTimeLeft: number) => {
@@ -46,6 +50,7 @@ const App: React.FC = () => {
 		setShowGame(true);
 		setShowTop(false);
 	};
+	console.log(questionNum);
 	return (
 		<>
 			<header>
@@ -55,7 +60,9 @@ const App: React.FC = () => {
 							<ul>
 								<li>
 									<FaCheckCircle />
-									<span className="point">{correctNum}</span>
+									<span className="point">
+										{correctNum}/{questionNum}
+									</span>
 								</li>
 								<li>
 									<MdOutlineTimer />
@@ -71,25 +78,26 @@ const App: React.FC = () => {
 			</header>
 			<main>
 				<div className="container">
-					<GameProvider>
-						{showGame && (
-							<Game
-								onTimeUpdate={handleTimeUpdate}
-								onCorrectUpdate={handleCorrectUpdate}
-								onFinish={handleFinishGame}
-							/>
-						)}
-						{showTop && (
-							<div className="wrapper">
-								<h1 className="main_title neonText">LOGO GAME</h1>
-								<p className="main_sub_title">- How many logos do you know? -</p>
-								<button onClick={() => gameStartHandler()} className="start_btn">
-									START
-								</button>
-							</div>
-						)}
-						{showFinish && <Finish />}
-					</GameProvider>
+					{showGame && (
+						<Game
+							onTimeUpdate={handleTimeUpdate}
+							onCorrectUpdate={handleCorrectUpdate}
+							questionNum={questionNum}
+							correctNum={correctNum}
+							onQuestionUpdate={handleQuestionUpdate}
+							onFinish={handleFinishGame}
+						/>
+					)}
+					{showTop && (
+						<div className="wrapper">
+							<h1 className="main_title neonText">LOGO GAME</h1>
+							<p className="main_sub_title">- How many logos do you know? -</p>
+							<button onClick={() => gameStartHandler()} className="start_btn">
+								START
+							</button>
+						</div>
+					)}
+					{showFinish && <Finish numbers={[correctNum, questionNum]} />}
 				</div>
 			</main>
 			<footer>

@@ -5,11 +5,21 @@ import { GameContext } from "./GameContext";
 
 type GameProps = {
 	onCorrectUpdate: (correctNum: number) => void;
+	onQuestionUpdate: (questionNum: number) => void;
 	onTimeUpdate: (timeLeft: number) => void;
 	onFinish: (finish: boolean) => void;
+	questionNum: number;
+	correctNum: number;
 };
 
-const Game: React.FC<GameProps> = ({ onCorrectUpdate, onTimeUpdate, onFinish }) => {
+const Game: React.FC<GameProps> = ({
+	onCorrectUpdate,
+	questionNum,
+	onQuestionUpdate,
+	correctNum,
+	onTimeUpdate,
+	onFinish,
+}: GameProps) => {
 	const [randomItem, setRandomItem] = useState<logo[]>([]);
 	const [ansMsg, setAndMsg] = useState<string>("");
 	const [timeLeft, setTimeLeft] = useState<number>(10); // 初期の時間制限（10秒）
@@ -20,11 +30,6 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate, onTimeUpdate, onFinish }) 
 	const [answer, setAnswer] = useState<logo | null>(null);
 	// ポップアップ
 	const [showPopup, setShowPopup] = useState(false);
-
-	// GameContextから値を取得
-	const gameContext = useContext(GameContext);
-	if (!gameContext) return null; // gameContext が undefined の場合は何も表示しない
-	const { questionNum, correctNum, setQuestionNum, setCorrectNum } = gameContext;
 
 	type logo = {
 		id: number;
@@ -69,9 +74,8 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate, onTimeUpdate, onFinish }) 
 
 	// リセット
 	const resetCount = () => {
-		setCorrectNum(0);
-		setQuestionNum(0);
 		setNewAnswer();
+		onQuestionUpdate(0);
 		onCorrectUpdate(0);
 		setTimeLeft(30);
 	};
@@ -83,23 +87,21 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate, onTimeUpdate, onFinish }) 
 				if (prevTime <= 1) {
 					clearInterval(timer); // ここでタイマーをクリア
 					onFinish(true);
-					setQuestionNum(questionNum);
-					setCorrectNum(correctNum);
 					return 0;
 				}
 				return prevTime - 1;
 			});
 		}, 1000);
 
-		// クリーンアップ関数でタイマーをクリア
 		return () => clearInterval(timer);
-	}, [questionNum, correctNum, onFinish, setQuestionNum, setCorrectNum]);
+	}, []);
 
 	// 親コンポーネントへ時間を通知
 	useEffect(() => {
 		onTimeUpdate(timeLeft);
 	}, [timeLeft, onTimeUpdate]);
 
+	// 初期化
 	useEffect(() => {
 		setNewAnswer();
 	}, []);
@@ -112,11 +114,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate, onTimeUpdate, onFinish }) 
 
 		if (answer && answer.id === id) {
 			setAndMsg("Correct!");
-			setCorrectNum((correctNum) => {
-				const updatedCorrect = correctNum + 1;
-				onCorrectUpdate(updatedCorrect);
-				return updatedCorrect;
-			});
+			onCorrectUpdate(correctNum + 1);
 		} else {
 			setAndMsg("Miss");
 		}
@@ -128,7 +126,7 @@ const Game: React.FC<GameProps> = ({ onCorrectUpdate, onTimeUpdate, onFinish }) 
 			setShowPopup(false);
 		}, 800);
 		setNewAnswer();
-		setQuestionNum((correctNum) => correctNum + 1);
+		onQuestionUpdate(questionNum + 1);
 	};
 
 	return (
