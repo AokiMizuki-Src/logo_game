@@ -1,35 +1,54 @@
-import { useState } from "react";
-import "./App.css";
+import { useEffect, useState } from "react";
+import "./assets/App.css";
 import Game from "./Game";
 import { MdOutlineTimer } from "react-icons/md";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaRegSmile } from "react-icons/fa";
 import Finish from "./Finish";
+import { Ranking } from "./Ranking";
+import { FaRankingStar } from "react-icons/fa6";
 
 const App: React.FC = () => {
-	const [showTop, setShowTop] = useState<boolean>(true);
-	const [showGame, setShowGame] = useState<boolean>(false);
+	const BASEPOINT = 50;
+	const STREAKBONUS = 10;
+	const [showTop, setShowTop] = useState<boolean>(true); // TOP
+	const [showGame, setShowGame] = useState<boolean>(false); //ゲーム
+	const [showFinish, setShowFinish] = useState<boolean>(false); // ゲーム終了
+	const [showRanking, setShowRanking] = useState<boolean>(false); // ランキング
+
 	// 正解数
 	const [correctNum, setCorrectNum] = useState<number>(0);
 	// 問題数
 	const [questionNum, setQuestionNum] = useState<number>(0);
 	// 残り時間
 	const [timeLeft, setTimeLeft] = useState<number>(10);
-	// ゲーム終了
-	const [showFinish, setShowFinish] = useState<boolean>(false);
+	const [score, setScore] = useState<number>(0); // score
+	const [streakNum, setStreakNum] = useState<number>(0); // score
 
-	// ゲーム終了時の処理
-	// const handleFinishGame = (questions: number, corrects: number) => {
-	// 	setQuestionNum(questions);
-	// 	setCorrectNum(corrects);
-	// 	setShowGame(false);
-	// 	setShowFinish(true);
-	// };
+	useEffect(() => {
+		setScore(() => {
+			const result = BASEPOINT * questionNum + STREAKBONUS * streakNum;
+			return result;
+		});
+	}, [questionNum, streakNum]);
+
+	const handleSteakUpdate = (flg: boolean) => {
+		if (flg === true) {
+			setStreakNum(streakNum + 1);
+		} else {
+			setStreakNum(0);
+		}
+	};
 
 	const handleFinishGame = (status: boolean) => {
 		setShowGame(!status);
 		setShowFinish(status);
-
 		console.log("finish");
+	};
+	const handleRanking = (status: boolean) => {
+		setShowGame(!status);
+		setShowFinish(!status);
+		setShowTop(!status);
+		setShowRanking(status);
 	};
 
 	const handleCorrectUpdate = (newCorrectNum: number) => {
@@ -59,10 +78,8 @@ const App: React.FC = () => {
 						{showGame && (
 							<ul>
 								<li>
-									<FaCheckCircle />
-									<span className="point">
-										{correctNum}/{questionNum}
-									</span>
+									<FaRegSmile />
+									<span className="point">{score}</span>
 								</li>
 								<li>
 									<MdOutlineTimer />
@@ -71,6 +88,9 @@ const App: React.FC = () => {
 							</ul>
 						)}
 					</nav>
+					<div className="headerRanking" title="Ranking" onClick={() => handleRanking(true)}>
+						<FaRankingStar title="Ranking" />
+					</div>
 					<div className="logo">
 						<a href="">logo</a>
 					</div>
@@ -86,9 +106,11 @@ const App: React.FC = () => {
 							correctNum={correctNum}
 							onQuestionUpdate={handleQuestionUpdate}
 							onFinish={handleFinishGame}
+							onSteakUpdate={handleSteakUpdate}
 						/>
 					)}
 					{showTop && (
+						// {showGame && (
 						<div className="wrapper">
 							<h1 className="main_title neonText">LOGO GAME</h1>
 							<p className="main_sub_title">- How many logos do you know? -</p>
@@ -97,7 +119,15 @@ const App: React.FC = () => {
 							</button>
 						</div>
 					)}
-					{showFinish && <Finish numbers={[correctNum, questionNum]} />}
+					{showFinish && (
+						<Finish
+							correctNum={correctNum}
+							questionNum={questionNum}
+							score={score}
+							onShowranking={handleRanking}
+						/>
+					)}
+					{showRanking && <Ranking />}
 				</div>
 			</main>
 			<footer>

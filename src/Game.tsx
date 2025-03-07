@@ -8,6 +8,7 @@ type GameProps = {
 	onQuestionUpdate: (questionNum: number) => void;
 	onTimeUpdate: (timeLeft: number) => void;
 	onFinish: (finish: boolean) => void;
+	onSteakUpdate: (flg: boolean) => void;
 	questionNum: number;
 	correctNum: number;
 };
@@ -19,6 +20,7 @@ const Game: React.FC<GameProps> = ({
 	correctNum,
 	onTimeUpdate,
 	onFinish,
+	onSteakUpdate,
 }: GameProps) => {
 	const [randomItem, setRandomItem] = useState<logo[]>([]);
 	const [ansMsg, setAndMsg] = useState<string>("");
@@ -44,11 +46,11 @@ const Game: React.FC<GameProps> = ({
 	// 配列をシャッフルする関数
 	const shuffleArray = (array: logo[]): logo[] => {
 		const n = array.length;
-		let idx = [...array];
+		const idx = [...array];
 		const kmax = Math.floor(Math.random() * 100) + Math.floor(Math.random() * 100);
 		for (let k = 0; k < kmax; k++) {
-			let i = Math.floor(Math.random() * n);
-			let j = Math.floor(Math.random() * n);
+			const i = Math.floor(Math.random() * n);
+			const j = Math.floor(Math.random() * n);
 			[idx[i], idx[j]] = [idx[j], idx[i]];
 		}
 		return idx;
@@ -78,6 +80,7 @@ const Game: React.FC<GameProps> = ({
 		onQuestionUpdate(0);
 		onCorrectUpdate(0);
 		setTimeLeft(30);
+		onSteakUpdate(false);
 	};
 
 	// タイマーの管理
@@ -115,8 +118,10 @@ const Game: React.FC<GameProps> = ({
 		if (answer && answer.id === id) {
 			setAndMsg("Correct!");
 			onCorrectUpdate(correctNum + 1);
+			onSteakUpdate(true);
 		} else {
 			setAndMsg("Miss");
+			onSteakUpdate(false);
 		}
 
 		// ポップアップを表示

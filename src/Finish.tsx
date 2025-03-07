@@ -1,38 +1,68 @@
-import { useContext } from "react";
-import "./Finish.css";
-import { GameContext } from "./GameContext";
+import React, { useState } from "react";
+import "./assets/Finish.css";
+// import { GameContext } from "./GameContext";
 // import firebase from "firebase/compat/app";
-// import db from "./firebase";
-// import { collection, doc, setDoc } from "firebase/firestore";
+
+import db from "./firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 type FinishProps = {
-	numbers: number[];
+	questionNum: number;
+	correctNum: number;
+	score: number;
+	onShowranking: (staus: boolean) => void;
 };
 
-// type ScoreData = {
-// 	name: string;
-// 	score: number;
-// };
+type TypeOfScoreData = {
+	correct: number;
+	questions: number;
+	name: string;
+	score: number;
+	timestamp: Date;
+};
 
-const Finish: React.FC<FinishProps> = (props) => {
-	const gameContext = useContext(GameContext);
-	console.log(gameContext);
-	// console.log("props.correct", props.correct);
-	// console.log("props.quetion", props.question);
+const Finish: React.FC<FinishProps> = ({ questionNum, correctNum, score, onShowranking }: FinishProps) => {
+	// const [posts, setposts] = useState([]);
+	const [scoreData, setScoreData] = useState<TypeOfScoreData>({
+		correct: 0,
+		questions: 0,
+		name: "anonymous",
+		score: 0,
+		timestamp: new Date(),
+	});
 
-	// const [scoreData, setScoreDatas] = useState<ScoreData | null>(null);
-
-	if (!gameContext) return null; // gameContext が undefined の場合は何も表示しない
-	// const { questionNum, correctNum } = gameContext;
-
-	// setDoc(doc(db, "scores"), scoreData)
-
-	// function postScore() {
-	// 	setDoc(doc(collection(db, "scores")), {
-	// 		name: scoreData?.name,
-	// 		score: scoreData?.score,
+	// useEffect(() => {
+	// 	const postData = collection(db, "scores");
+	// 	getDocs(postData).then((snapShot) => {
+	// 		console.log(snapShot.docs.map((doc) => ({ ...doc.data() })));
 	// 	});
-	// }
+	// }, []);
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setScoreData((prev) => ({
+			...prev,
+			name: e.target.value,
+		}));
+	};
+
+	const handleSubmit = async () => {
+		if (!scoreData.name) return;
+
+		try {
+			scoreData.correct = correctNum;
+			scoreData.questions = questionNum;
+			scoreData.score = score;
+			console.log(scoreData);
+
+			const docRef = await addDoc(collection(db, "scores"), scoreData);
+			console.log("書き込み成功:", docRef.id);
+			onShowranking(true);
+		} catch (er) {
+			console.error("Errorっす", er);
+			// TODO: トースターでエラー表示したい
+		}
+		console.log("submit!");
+	};
 
 	return (
 		<>
@@ -40,21 +70,21 @@ const Finish: React.FC<FinishProps> = (props) => {
 				<h1 className="finishTitle">Time up!</h1>
 				<p>Thank you for playing!</p>
 				<div className="finishScore">
+					<p>Score: {score}</p>
 					<p>
-						Correct:{props.numbers[0]}/{props.numbers[1]}
+						Correct: {correctNum}/{questionNum}
 					</p>
 				</div>
 				<div className="finishInputArea">
 					<label htmlFor="finishInput">Please fill in your name!</label>
-					{/* <input
+					<input
 						type="text"
 						className="finishInput"
 						id="finishInput"
 						placeholder="Your name"
-						onChange={(e) => setScoreDatas({ name: e.target.value, score: correct })}
-						value={scoreData?.name}
-					/> */}
-					{/* <input type="button" className="finishInputBtn" value="OK" onClick={postScore} /> */}
+						onChange={handleChange}
+					/>
+					<input type="button" className="finishInputBtn" value="OK" onClick={handleSubmit} />
 				</div>
 			</div>
 		</>

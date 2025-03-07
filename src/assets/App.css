@@ -38,6 +38,7 @@ header > .container {
 	align-items: center;
 	font-size: 22px;
 	padding: 0 max(2%, 15px);
+	gap: 10px;
 
 	& nav.header_nav {
 		margin-right: auto;
@@ -59,6 +60,22 @@ header > .container {
 	min-width: 30px;
 	text-align: center;
 	margin: 0 10px;
+}
+
+.headerRanking {
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background 0.6s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+
+	&:hover {
+		background: #fcfcfc1f;
+		transition: background 0.3s;
+	}
 }
 
 main {
