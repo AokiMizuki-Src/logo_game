@@ -57,7 +57,10 @@ export const Ranking = () => {
 						<div>{index + 1}</div>
 						<div>{item.name}</div>
 						<div>
-							<div>{item.score}</div>({item.correct}/{item.questions})
+							<div>{item.score}</div>
+							<div style={{ fontSize: "16px" }}>
+								({item.correct}/{item.questions})
+							</div>
 						</div>
 					</li>
 				))}

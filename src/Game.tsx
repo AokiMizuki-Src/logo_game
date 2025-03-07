@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import logos from "./assets/logo.json";
 import Popup from "./popup";
-// import { GameContext } from "./GameContext";
 
 type GameProps = {
 	onCorrectUpdate: (correctNum: number) => void;
@@ -24,7 +23,7 @@ const Game: React.FC<GameProps> = ({
 }: GameProps) => {
 	const [randomItem, setRandomItem] = useState<logo[]>([]);
 	const [ansMsg, setAndMsg] = useState<string>("");
-	const [timeLeft, setTimeLeft] = useState<number>(10); // 初期の時間制限（10秒）
+	const [timeLeft, setTimeLeft] = useState<number>(30); // 初期の時間制限（３0秒）
 
 	// 前回のanswerを保持
 	const [previousAnswer, setPreviousAnswer] = useState<logo | null>(null);
@@ -75,21 +74,20 @@ const Game: React.FC<GameProps> = ({
 	};
 
 	// リセット
-	const resetCount = () => {
-		setNewAnswer();
-		onQuestionUpdate(0);
-		onCorrectUpdate(0);
-		setTimeLeft(30);
-		onSteakUpdate(false);
-	};
+	// const resetCount = () => {
+	// 	setNewAnswer();
+	// 	onQuestionUpdate(0);
+	// 	onCorrectUpdate(0);
+	// 	setTimeLeft(30);
+	// 	onSteakUpdate(false);
+	// };
 
 	// タイマーの管理
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setTimeLeft((prevTime) => {
 				if (prevTime <= 1) {
-					clearInterval(timer); // ここでタイマーをクリア
-					onFinish(true);
+					clearInterval(timer); // タイマーをクリア
 					return 0;
 				}
 				return prevTime - 1;
@@ -111,7 +109,6 @@ const Game: React.FC<GameProps> = ({
 
 	const answerHandler = (id: number) => {
 		if (timeLeft === 0) {
-			onFinish(true);
 			return;
 		}
 
@@ -134,6 +131,13 @@ const Game: React.FC<GameProps> = ({
 		onQuestionUpdate(questionNum + 1);
 	};
 
+	//親更新用
+	useEffect(() => {
+		if (timeLeft === 0) {
+			onFinish(true);
+		}
+	}, [timeLeft, onFinish]);
+
 	return (
 		<>
 			{showPopup && <Popup message={ansMsg} onClose={handleClosePopup} />}
@@ -143,9 +147,9 @@ const Game: React.FC<GameProps> = ({
 			</div>
 			<div className="optionBtnArea">
 				<h2>Question. {questionNum}</h2>
-				<button type="button" className="resetBtn" onClick={resetCount}>
+				{/* <button type="button" className="resetBtn" onClick={resetCount}>
 					Reset
-				</button>
+				</button> */}
 			</div>
 
 			<div className="ansBtnArea">

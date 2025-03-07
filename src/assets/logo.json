@@ -258,5 +258,80 @@
 		"id": 52,
 		"name": "arm",
 		"url": "/logo_game/img/Arm.svg"
+	},
+	{
+		"id": 53,
+		"name": "Tailwind CSS",
+		"url": "/logo_game/img/tailwindcss-mark.svg"
+	},
+	{
+		"id": 54,
+		"name": "tailwind-merge",
+		"url": "/logo_game/img/tailwind-merge.svg"
+	},
+	{
+		"id": 55,
+		"name": "nodemon",
+		"url": "/logo_game/img/nodemon.png"
+	},
+	{
+		"id": 56,
+		"name": "OrbStack",
+		"url": "/logo_game/img/orbstack.png"
+	},
+	{
+		"id": 57,
+		"name": "Json Web Token",
+		"url": "/logo_game/img/jwt.svg"
+	},
+	{
+		"id": 58,
+		"name": "Prisma",
+		"url": "/logo_game/img/Prisma-LightSymbol.svg"
+	},
+	{
+		"id": 59,
+		"name": "MongoDB",
+		"url": "/logo_game/img/MongoDB.svg"
+	},
+	{
+		"id": 60,
+		"name": "Wireshark",
+		"url": "/logo_game/img/Wireshark.png"
+	},
+	{
+		"id": 61,
+		"name": "Wfuzz",
+		"url": "/logo_game/img/wfuzz.svg"
+	},
+	{
+		"id": 62,
+		"name": "Hydra",
+		"url": "/logo_game/img/hydra-logo.svg"
+	},
+	{
+		"id": 63,
+		"name": "Gobuster",
+		"url": "/logo_game/img/gobuster-logo.svg"
+	},
+	{
+		"id": 64,
+		"name": "Nmap",
+		"url": "/logo_game/img/nmap-logo.svg"
+	},
+	{
+		"id": 65,
+		"name": "John the Ripper",
+		"url": "/logo_game/img/john-logo.svg"
+	},
+	{
+		"id": 66,
+		"name": "WordPress",
+		"url": "/logo_game/img/WordPress-logotype-wmark-white.png"
+	},
+	{
+		"id": 67,
+		"name": "webpack",
+		"url": "/logo_game/img/webpack.svg"
 	}
 ]

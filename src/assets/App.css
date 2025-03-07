@@ -5,10 +5,6 @@
 	box-sizing: border-box;
 	text-decoration: none;
 	list-style: none;
-
-	font-family: "Tomorrow", serif;
-	font-weight: 500;
-	font-style: normal;
 }
 a {
 	color: inherit;
@@ -17,6 +13,10 @@ a {
 body {
 	height: 100svh;
 	overflow: hidden;
+
+	font-family: "Tomorrow", serif;
+	font-weight: 500;
+	font-style: normal;
 }
 
 .container {
@@ -314,5 +314,9 @@ footer {
 	text-align: center;
 	color: #69227d;
 	font-size: 12px;
-	padding-top: 5px;
+	height: 20px;
+	/* padding-top: 5px; */
+	& p {
+		/* padding: 10px 0; */
+	}
 }

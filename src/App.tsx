@@ -20,17 +20,40 @@ const App: React.FC = () => {
 	// 問題数
 	const [questionNum, setQuestionNum] = useState<number>(0);
 	// 残り時間
-	const [timeLeft, setTimeLeft] = useState<number>(10);
+	const [timeLeft, setTimeLeft] = useState<number>(30);
 	const [score, setScore] = useState<number>(0); // score
 	const [streakNum, setStreakNum] = useState<number>(0); // score
 
-	useEffect(() => {
-		setScore(() => {
-			const result = BASEPOINT * questionNum + STREAKBONUS * streakNum;
-			return result;
-		});
-	}, [questionNum, streakNum]);
+	// Finish画面表示
+	const handleFinishGame = (status: boolean) => {
+		setShowGame(!status);
+		setShowFinish(status);
+		console.log("finish");
+	};
+	// Ranking画面表示
+	const handleRanking = (status: boolean) => {
+		setShowGame(!status);
+		setShowFinish(!status);
+		setShowTop(!status);
+		setShowRanking(status);
+	};
+	// Game画面表示
+	const gameStartHandler = () => {
+		console.log("start");
+		setShowGame(true);
+		setShowTop(false);
+	};
 
+	const handleCorrectUpdate = (newCorrectNum: number) => {
+		setCorrectNum(newCorrectNum);
+	};
+	const handleQuestionUpdate = (newQuestiontNum: number) => {
+		setQuestionNum(newQuestiontNum);
+	};
+	const handleTimeUpdate = (newTimeLeft: number) => {
+		setTimeLeft(newTimeLeft);
+	};
+	//連続正解数カウント
 	const handleSteakUpdate = (flg: boolean) => {
 		if (flg === true) {
 			setStreakNum(streakNum + 1);
@@ -38,38 +61,13 @@ const App: React.FC = () => {
 			setStreakNum(0);
 		}
 	};
+	useEffect(() => {
+		setScore(() => {
+			const result = BASEPOINT * questionNum + STREAKBONUS * streakNum;
+			return result;
+		});
+	}, [questionNum, streakNum]);
 
-	const handleFinishGame = (status: boolean) => {
-		setShowGame(!status);
-		setShowFinish(status);
-		console.log("finish");
-	};
-	const handleRanking = (status: boolean) => {
-		setShowGame(!status);
-		setShowFinish(!status);
-		setShowTop(!status);
-		setShowRanking(status);
-	};
-
-	const handleCorrectUpdate = (newCorrectNum: number) => {
-		// Gameから渡される正解数を更新
-		setCorrectNum(newCorrectNum);
-	};
-	const handleQuestionUpdate = (newQuestiontNum: number) => {
-		// Gameから渡される正解数を更新
-		setQuestionNum(newQuestiontNum);
-	};
-
-	const handleTimeUpdate = (newTimeLeft: number) => {
-		setTimeLeft(newTimeLeft);
-	};
-
-	const gameStartHandler = () => {
-		console.log("start");
-		setShowGame(true);
-		setShowTop(false);
-	};
-	console.log(questionNum);
 	return (
 		<>
 			<header>

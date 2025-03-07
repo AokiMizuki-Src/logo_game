@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import "./assets/Finish.css";
-// import { GameContext } from "./GameContext";
-// import firebase from "firebase/compat/app";
 
 import db from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
@@ -22,7 +20,6 @@ type TypeOfScoreData = {
 };
 
 const Finish: React.FC<FinishProps> = ({ questionNum, correctNum, score, onShowranking }: FinishProps) => {
-	// const [posts, setposts] = useState([]);
 	const [scoreData, setScoreData] = useState<TypeOfScoreData>({
 		correct: 0,
 		questions: 0,
@@ -30,13 +27,6 @@ const Finish: React.FC<FinishProps> = ({ questionNum, correctNum, score, onShowr
 		score: 0,
 		timestamp: new Date(),
 	});
-
-	// useEffect(() => {
-	// 	const postData = collection(db, "scores");
-	// 	getDocs(postData).then((snapShot) => {
-	// 		console.log(snapShot.docs.map((doc) => ({ ...doc.data() })));
-	// 	});
-	// }, []);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setScoreData((prev) => ({
