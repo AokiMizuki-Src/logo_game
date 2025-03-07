@@ -1,5 +1,5 @@
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import db from "./firebase";
 import "./assets/Ranking.css";
 import { FaRankingStar } from "react-icons/fa6";
