@@ -16,8 +16,11 @@
 
 ul.ranking {
 	width: 100%;
+	max-width: 1200px;
+
 	height: 640px;
 	overflow-y: auto;
+	scrollbar-color: #7572f92f transparent;
 
 	text-align: center;
 	display: flex;

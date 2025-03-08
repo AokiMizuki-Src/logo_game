@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import "./assets/App.css";
 import Game from "./Game";
 import { MdOutlineTimer } from "react-icons/md";
@@ -22,7 +22,9 @@ const App: React.FC = () => {
 	// 残り時間
 	const [timeLeft, setTimeLeft] = useState<number>(30);
 	const [score, setScore] = useState<number>(0); // score
-	const [streakNum, setStreakNum] = useState<number>(0); // score
+	const [streakNum, setStreakNum] = useState<number>(0); // 連続正解数
+	const [prevAnsStatus, setPrevAnsStatus] = useState<boolean>(false);
+	const [penalty, setPenalty] = useState<number>(50); // ミス | 初期値でscoreを０に相殺
 
 	// Finish画面表示
 	const handleFinishGame = (status: boolean) => {
@@ -55,19 +57,32 @@ const App: React.FC = () => {
 	};
 	//連続正解数カウント
 	const handleSteakUpdate = (flg: boolean) => {
-		if (flg === true) {
-			setStreakNum(streakNum + 1);
+		if (flg) {
+			if (prevAnsStatus) {
+				setStreakNum((prev) => prev + 1);
+			}
+			setPrevAnsStatus(true);
 		} else {
 			setStreakNum(0);
+			setPrevAnsStatus(false);
 		}
 	};
-	useEffect(() => {
-		setScore(() => {
-			const result = BASEPOINT * questionNum + STREAKBONUS * streakNum;
-			return result;
-		});
-	}, [questionNum, streakNum]);
 
+	//Miss:-50point
+	const handlePenalty = (flg: boolean) => {
+		if (flg) {
+			setPenalty(60);
+		} else {
+			setPenalty(0);
+		}
+	};
+	useMemo(() => {
+		setScore((pre) => pre + BASEPOINT + STREAKBONUS * streakNum - penalty);
+	}, [questionNum]);
+
+	useMemo(() => {
+		console.log(`score: ${score}, streakNum: ${streakNum}, penalty: ${penalty}`);
+	}, [score, streakNum, penalty]);
 	return (
 		<>
 			<header>
@@ -78,6 +93,9 @@ const App: React.FC = () => {
 								<li>
 									<FaRegSmile />
 									<span className="point">{score}</span>
+									{/* <span className="point">
+										{BASEPOINT * questionNum} + {STREAKBONUS * streakNum} - {penalty} = {score}
+									</span> */}
 								</li>
 								<li>
 									<MdOutlineTimer />
@@ -105,6 +123,7 @@ const App: React.FC = () => {
 							onQuestionUpdate={handleQuestionUpdate}
 							onFinish={handleFinishGame}
 							onSteakUpdate={handleSteakUpdate}
+							onPenaltyUpdate={handlePenalty}
 						/>
 					)}
 					{showTop && (

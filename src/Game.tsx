@@ -8,6 +8,7 @@ type GameProps = {
 	onTimeUpdate: (timeLeft: number) => void;
 	onFinish: (finish: boolean) => void;
 	onSteakUpdate: (flg: boolean) => void;
+	onPenaltyUpdate: (flg: boolean) => void;
 	questionNum: number;
 	correctNum: number;
 };
@@ -20,13 +21,16 @@ const Game: React.FC<GameProps> = ({
 	onTimeUpdate,
 	onFinish,
 	onSteakUpdate,
+	onPenaltyUpdate,
 }: GameProps) => {
-	const [randomItem, setRandomItem] = useState<logo[]>([]);
+	// const [randomItem, setRandomItem] = useState<logo[]>([]);
+	const [questions, setQuestions] = useState<logo[]>([]);
+	const [ansIndex, setAnsIndex] = useState<number>(0); //正解の配列番号
 	const [ansMsg, setAndMsg] = useState<string>("");
 	const [timeLeft, setTimeLeft] = useState<number>(30); // 初期の時間制限（３0秒）
 
 	// 前回のanswerを保持
-	const [previousAnswer, setPreviousAnswer] = useState<logo | null>(null);
+	// const [previousAnswer, setPreviousAnswer] = useState<logo | null>(null);
 	// 現在のanswer
 	const [answer, setAnswer] = useState<logo | null>(null);
 	// ポップアップ
@@ -45,33 +49,70 @@ const Game: React.FC<GameProps> = ({
 	// 配列をシャッフルする関数
 	const shuffleArray = (array: logo[]): logo[] => {
 		const n = array.length;
-		const idx = [...array];
+		const shuffled = [...array];
 		const kmax = Math.floor(Math.random() * 100) + Math.floor(Math.random() * 100);
 		for (let k = 0; k < kmax; k++) {
 			const i = Math.floor(Math.random() * n);
 			const j = Math.floor(Math.random() * n);
-			[idx[i], idx[j]] = [idx[j], idx[i]];
+			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
 		}
-		return idx;
+		return shuffled;
 	};
 
 	// ランダムなロゴを生成
-	const randomLogos = (): logo[] => {
-		return shuffleArray([...logos]).slice(0, 4);
+	function createRandomLogos(): logo[] {
+		return shuffleArray([...logos]);
+	}
+	// JSONファイルから取得しているロゴデータをランダムにして初期セット
+	const [randomLogos, setRandomLogos] = useState<logo[]>(createRandomLogos);
+
+	const handleUpdateQuestion = (arrayId: number): void => {
+		// 正解をセット
+		const newAnswer = randomLogos[arrayId];
+		setAnswer(newAnswer);
+		// ランダムのLOGO配列から正解を除き３つ選ぶ
+		const theOthers = randomLogos.filter((_, index) => index !== arrayId);
+		const dummyAns = shuffleArray([...theOthers]).slice(0, 3);
+		// ４択をセット
+		setQuestions(shuffleArray(dummyAns.concat(newAnswer)));
+		console.log(questions);
 	};
+
+	// 初期化
+	useEffect(() => {
+		// 正解をセット
+		const initialAnswer = randomLogos[questionNum];
+		setAnswer(initialAnswer);
+		// ランダムのLOGO配列から正解を除き３つ選ぶ
+		const theOthers = randomLogos.filter((_, index) => index !== questionNum);
+		const dummyAns = shuffleArray([...theOthers]).slice(0, 3);
+		// ４択をセット
+		setQuestions(shuffleArray(dummyAns.concat(initialAnswer)));
+	}, []);
+
+	useEffect(() => {
+		// 用意しているlogoのmaxまで行ったら再シャッフル
+		if (ansIndex + 1 === logos.length) {
+			setRandomLogos(createRandomLogos);
+			console.log("reshuffle!!!!!");
+			setAnsIndex(0);
+		} else {
+			setAnsIndex(ansIndex + 1);
+		}
+	}, [questionNum]);
 
 	// 新しい問題を設定
-	const setNewAnswer = () => {
-		const currentRandomItems = randomLogos();
-		let newAnswer: logo;
-		do {
-			newAnswer = currentRandomItems[Math.floor(Math.random() * currentRandomItems.length)];
-		} while (previousAnswer && newAnswer.id === previousAnswer.id);
+	// const setNewAnswer = () => {
+	// 	const currentRandomItems = randomLogos();
+	// 	let newAnswer: logo;
+	// 	do {
+	// 		newAnswer = currentRandomItems[Math.floor(Math.random() * currentRandomItems.length)];
+	// 	} while (previousAnswer && newAnswer.id === previousAnswer.id);
 
-		setRandomItem(shuffleArray(currentRandomItems));
-		setAnswer(newAnswer);
-		setPreviousAnswer(newAnswer);
-	};
+	// 	setRandomItem(shuffleArray(currentRandomItems));
+	// 	setAnswer(newAnswer);
+	// 	setPreviousAnswer(newAnswer);
+	// };
 
 	// リセット
 	// const resetCount = () => {
@@ -102,11 +143,6 @@ const Game: React.FC<GameProps> = ({
 		onTimeUpdate(timeLeft);
 	}, [timeLeft, onTimeUpdate]);
 
-	// 初期化
-	useEffect(() => {
-		setNewAnswer();
-	}, []);
-
 	const answerHandler = (id: number) => {
 		if (timeLeft === 0) {
 			return;
@@ -116,9 +152,11 @@ const Game: React.FC<GameProps> = ({
 			setAndMsg("Correct!");
 			onCorrectUpdate(correctNum + 1);
 			onSteakUpdate(true);
+			onPenaltyUpdate(false);
 		} else {
 			setAndMsg("Miss");
 			onSteakUpdate(false);
+			onPenaltyUpdate(true);
 		}
 
 		// ポップアップを表示
@@ -127,7 +165,8 @@ const Game: React.FC<GameProps> = ({
 		setTimeout(() => {
 			setShowPopup(false);
 		}, 800);
-		setNewAnswer();
+		// setNewAnswer();
+		handleUpdateQuestion(ansIndex);
 		onQuestionUpdate(questionNum + 1);
 	};
 
@@ -153,7 +192,7 @@ const Game: React.FC<GameProps> = ({
 			</div>
 
 			<div className="ansBtnArea">
-				{randomItem.map((item) => (
+				{questions.map((item) => (
 					<button key={item.id} type="button" className="answerBtn" onClick={() => answerHandler(item.id)}>
 						{item.name}
 					</button>
