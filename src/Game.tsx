@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import logos from "./assets/logo.json";
 import Popup from "./popup";
+import { toast, ToastContainer, Slide } from "react-toastify";
 
 type GameProps = {
 	onCorrectUpdate: (correctNum: number) => void;
@@ -12,6 +13,7 @@ type GameProps = {
 	questionNum: number;
 	correctNum: number;
 };
+const popIcon = ["🦄", "🚀", "🛸", "❤️‍🔥", "🧜🏻‍♀️", "🧞‍♂️"];
 
 const Game: React.FC<GameProps> = ({
 	onCorrectUpdate,
@@ -153,6 +155,15 @@ const Game: React.FC<GameProps> = ({
 			onCorrectUpdate(correctNum + 1);
 			onSteakUpdate(true);
 			onPenaltyUpdate(false);
+
+			// １０問正解ごとにPOP表示
+			if (correctNum > 0 && correctNum % 10 === 0) {
+				toast(`${popIcon[correctNum / 10 - 1] ?? "😘"} ${correctNum} Correct Answers Achieved!`, {
+					closeOnClick: true,
+					theme: "light",
+					transition: Slide,
+				});
+			}
 		} else {
 			setAndMsg("Miss");
 			onSteakUpdate(false);
@@ -180,6 +191,7 @@ const Game: React.FC<GameProps> = ({
 	return (
 		<>
 			{showPopup && <Popup message={ansMsg} onClose={handleClosePopup} />}
+			<ToastContainer theme="dark" />
 
 			<div className="display">
 				<div className="imgArea">{answer && <img src={answer.url} alt="logo" />}</div>

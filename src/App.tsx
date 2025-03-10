@@ -141,7 +141,7 @@ const App: React.FC = () => {
 							correctNum={correctNum}
 							questionNum={questionNum}
 							score={score}
-							onShowranking={handleRanking}
+							onShowRanking={handleRanking}
 						/>
 					)}
 					{showRanking && <Ranking />}

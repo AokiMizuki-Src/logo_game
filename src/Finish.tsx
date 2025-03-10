@@ -3,12 +3,13 @@ import "./assets/Finish.css";
 
 import db from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
 
 type FinishProps = {
 	questionNum: number;
 	correctNum: number;
 	score: number;
-	onShowranking: (staus: boolean) => void;
+	onShowRanking: (staus: boolean) => void;
 };
 
 type TypeOfScoreData = {
@@ -19,7 +20,7 @@ type TypeOfScoreData = {
 	timestamp: Date;
 };
 
-const Finish: React.FC<FinishProps> = ({ questionNum, correctNum, score, onShowranking }: FinishProps) => {
+const Finish: React.FC<FinishProps> = ({ questionNum, correctNum, score, onShowRanking }: FinishProps) => {
 	const [scoreData, setScoreData] = useState<TypeOfScoreData>({
 		correct: 0,
 		questions: 0,
@@ -46,10 +47,13 @@ const Finish: React.FC<FinishProps> = ({ questionNum, correctNum, score, onShowr
 
 			const docRef = await addDoc(collection(db, "scores"), scoreData);
 			console.log("書き込み成功:", docRef.id);
-			onShowranking(true);
+			toast.info(`Registered!`);
+			setTimeout(() => {
+				onShowRanking(true);
+			}, 1000);
 		} catch (er) {
-			console.error("Errorっす", er);
-			// TODO: トースターでエラー表示したい
+			console.error("Error", er);
+			toast.error(`Error: ${er}`);
 		}
 		console.log("submit!");
 	};
@@ -57,6 +61,7 @@ const Finish: React.FC<FinishProps> = ({ questionNum, correctNum, score, onShowr
 	return (
 		<>
 			<div className="finish">
+				<ToastContainer theme="dark" />
 				<h1 className="finishTitle">Time up!</h1>
 				<p>Thank you for playing!</p>
 				<div className="finishScore">
