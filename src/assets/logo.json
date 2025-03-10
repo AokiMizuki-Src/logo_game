@@ -333,5 +333,30 @@
 		"id": 67,
 		"name": "webpack",
 		"url": "/logo_game/img/webpack.svg"
+	},
+	{
+		"id": 68,
+		"name": "Deno",
+		"url": "/logo_game/img/deno.svg"
+	},
+	{
+		"id": 69,
+		"name": "Bun",
+		"url": "/logo_game/img/bun.svg"
+	},
+	{
+		"id": 70,
+		"name": "Vitest",
+		"url": "/logo_game/img/vitest.svg"
+	},
+	{
+		"id": 71,
+		"name": "Jest",
+		"url": "/logo_game/img/jest.png"
+	},
+	{
+		"id": 72,
+		"name": "Playwigtht",
+		"url": "/logo_game/img/playwright-logo.svg"
 	}
 ]
